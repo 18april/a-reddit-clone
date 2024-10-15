@@ -22,21 +22,21 @@ pipeline {
         }
         stage('Checkout from Git') {
             steps {
-                git branch: 'main', url: 'https://github.com/Ashfaque-9x/a-reddit-clone.git'
+                git branch: 'main', url: 'https://github.com/18april/a-reddit-clone.git'
             }
         }
         stage("Sonarqube Analysis") {
             steps {
                 withSonarQubeEnv('SonarQube-Server') {
-                    sh '''$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName=Reddit-Clone-CI \
-                    -Dsonar.projectKey=Reddit-Clone-CI'''
+                    sh '''$SCANNER_HOME/bin/sonar-scanner -Dsonar.projectName= reddit-clone-ci \
+                    -Dsonar.projectKey=reddit-clone-ci'''
                 }
             }
         }
         stage("Quality Gate") {
             steps {
                 script {
-                    waitForQualityGate abortPipeline: false, credentialsId: 'SonarQube-Token'
+                    waitForQualityGate abortPipeline: false, credentialsId: 'sonar-token'
                 }
             }
         }
